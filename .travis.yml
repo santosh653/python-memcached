@@ -12,7 +12,9 @@ python:
 services:
   - memcached
 install: python setup.py install
-before_script: python -m pip install -U pip
+before_script: 
+  - python -m pip install -U pip
+  - python -m pip install flake8
 script:
   - flake8
   - nosetests
