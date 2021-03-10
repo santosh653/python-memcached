@@ -12,7 +12,7 @@ python:
 services:
   - memcached
 install: python setup.py install
-before_script: pip install -r test-requirements.txt
+before_script: python -m pip install -U pip
 script:
   - flake8
   - nosetests
