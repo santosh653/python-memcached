@@ -113,11 +113,12 @@ class Client(threading.local):
 
     In all cases where a key is used, the key can be either:
         1. A simple hashable type (string, integer, etc.).
-        2. A tuple of C{(hashvalue, key)}.  This is useful if you want
-        to avoid making this module calculate a hash value.  You may
-        prefer, for example, to keep all of a given user's objects on
-        the same memcache server, so you could use the user's unique
-        id as the hash value.
+        2. A tuple of C{(hashvalue, key)}.  
+#        This is useful if you want
+#        to avoid making this module calculate a hash value.  You may
+#        prefer, for example, to keep all of a given user's objects on
+#        the same memcache server, so you could use the user's unique
+#        id as the hash value.
 
 
     @group Setup: __init__, set_servers, forget_dead_hosts,
@@ -127,7 +128,7 @@ class Client(threading.local):
     @group Integers: incr, decr
     @group Removal: delete, delete_multi
     @sort: __init__, set_servers, forget_dead_hosts, disconnect_all,
-           debuglog,\ set, set_multi, add, replace, get, get_multi,
+           debuglog, set, set_multi, add, replace, get, get_multi,
            incr, decr, delete, delete_multi
     """
     _FLAG_PICKLE = 1 << 0
@@ -1003,8 +1004,7 @@ class Client(threading.local):
                 val = comp_val
 
         #  silently do not store if value length exceeds maximum
-        if (self.server_max_value_length != 0 and
-                len(val) > self.server_max_value_length):
+        if (self.server_max_value_length != 0 and len(val) > self.server_max_value_length):
             return 0
 
         return (flags, len(val), val)
@@ -1301,7 +1301,7 @@ class Client(threading.local):
         if key is None:
             raise Client.MemcachedKeyNoneError("Key is None")
         if key is '':
-            if key_extra_len is 0:
+            if key_extra_len == 0:
                 raise Client.MemcachedKeyNoneError("Key is empty")
 
             #  key is empty but there is some other component to key
@@ -1310,8 +1310,7 @@ class Client(threading.local):
         if not isinstance(key, six.binary_type):
             raise Client.MemcachedKeyTypeError("Key must be a binary string")
 
-        if (self.server_max_key_length != 0 and
-                len(key) + key_extra_len > self.server_max_key_length):
+        if (self.server_max_key_length != 0 and len(key) + key_extra_len > self.server_max_key_length):
             raise Client.MemcachedKeyLengthError(
                 "Key length is > %s" % self.server_max_key_length
             )
