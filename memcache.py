@@ -67,9 +67,9 @@ else:
 
 def cmemcache_hash(key):
     return (((binascii.crc32(key) & 0xffffffff) >> 16) & 0x7fff) or 1
+
+
 serverHashFunction = cmemcache_hash
-
-
 def useOldServerHashFunction():
     """Use the old python-memcache server hash function."""
     global serverHashFunction
@@ -113,7 +113,7 @@ class Client(threading.local):
 
     In all cases where a key is used, the key can be either:
         1. A simple hashable type (string, integer, etc.).
-        2. A tuple of C{(hashvalue, key)}.  
+        2. A tuple of C{(hashvalue, key)}.
 #        This is useful if you want
 #        to avoid making this module calculate a hash value.  You may
 #        prefer, for example, to keep all of a given user's objects on
@@ -1300,7 +1300,7 @@ class Client(threading.local):
             key = key[1]
         if key is None:
             raise Client.MemcachedKeyNoneError("Key is None")
-        if key is '':
+        if key == '':
             if key_extra_len == 0:
                 raise Client.MemcachedKeyNoneError("Key is empty")
 
@@ -1439,7 +1439,7 @@ class _Host(object):
         if self.socket:
             recv = self.socket.recv
         else:
-            recv = lambda bufsize: b''
+            def recv(bufsize): return b''
 
         while True:
             index = buf.find(b'\r\n')
