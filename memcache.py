@@ -70,9 +70,9 @@ def cmemcache_hash(key):
 
 
 serverHashFunction = cmemcache_hash
+
+
 def useOldServerHashFunction():
-    
-    
     """Use the old python-memcache server hash function."""
     global serverHashFunction
     serverHashFunction = binascii.crc32
@@ -1441,7 +1441,7 @@ class _Host(object):
         if self.socket:
             recv = self.socket.recv
         else:
-            def recv(bufsize): 
+            def recv(bufsize):
                 return b''
 
         while True:
