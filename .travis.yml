@@ -9,6 +9,11 @@ python:
   - 3.5
   - 3.6
   - pypy
+#Excluding pypy for power as it is not supported.
+jobs:
+ exclude:
+  - python: 2.7
+    arch: ppc64le
 services:
   - memcached
 before_install:
