@@ -11,6 +11,11 @@ python:
   - pypy
 services:
   - memcached
+before_install:
+  - |
+     if [[ "$TRAVIS_CPU_ARCH" = "ppc64le" ]]; then
+      sudo apt-get install memcached  
+     fi
 install: python setup.py install
 before_script: 
   - python -m pip install -U pip
