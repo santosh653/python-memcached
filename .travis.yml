@@ -12,7 +12,7 @@ python:
 #Excluding pypy for power as it is not supported.
 jobs:
  exclude:
-  - python: 2.7
+  - python: pypy
     arch: ppc64le
 services:
   - memcached
